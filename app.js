@@ -48,15 +48,18 @@ $(function(){
     $('button').removeClass('selected');
     if (buttonType === 'c') {
       clearMemory();
-    } else {
+    } else if (buttonType === '=') {
+      $('input').prop('disabled', true).val('');
       updateTotal();
       lastOperator = buttonType;
-
-      if (buttonType !== '=' && buttonType !== 'c') {
-        $(this).addClass('selected');
-      }
+    } else {
+      $(this).addClass('selected');
+      updateTotal();
+      lastOperator = buttonType;
+      $('input').prop('disabled', false);
+      $('input').focus().val('');
     }
-    $('input').focus().val('');
+
   });
 
 });
