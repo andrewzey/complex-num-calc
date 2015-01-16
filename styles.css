@@ -1,7 +1,8 @@
-div {
+* {
   box-sizing: border-box;
 }
 .calcApp {
+  font-family: 'Arial';
   width: 422px;
   background-color: #f3f3f3;
   padding: 20px;
@@ -10,13 +11,33 @@ div {
 }
 
 .display input {
-  box-sizing: border-box;
   width: 100%;
   height: 40px;
   text-align: right;
   font-size: 24px;
   border: 1px solid #ccc;
   padding: 10px;
+}
+
+.display span {
+  display: inline-block;
+  height: 40px;
+  margin-top: 20px;
+  text-align: right;
+  font-size: 24px;
+  padding: 10px;
+  line-height: 20px;
+}
+
+.display span.label {
+  width: 100px;
+  /*border: 1px solid red;*/
+  font-style: italic;
+}
+
+.display span.total {
+  width: 275px;
+  border: 1px solid #ccc;
 }
 
 .buttonsRow {
@@ -40,4 +61,8 @@ button:last-child {
 
 button.wide {
   width: 140px;
+}
+
+button.selected {
+  border: 2px solid green;
 }
