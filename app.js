@@ -3,45 +3,73 @@
 $(function(){
   'use strict';
 
-  var resReal = 0;
-  var resImag = 0;
+  var totalReal = null;
+  var totalImag = null;
+  var lastReal = null;
+  var lastImag = null;
+  var lastOperator = null;
 
-  var formatDisplayTotal = function(real, imaginary) {
-    return real + ' + ' + imaginary + 'i';
+  var updateTotal = function() {
+    if (totalReal === null && totalImag === null) {
+      totalReal = lastReal;
+      totalImag = lastImag;
+    } else {
+      totalReal = performOperation(lastOperator, totalReal, lastReal);
+      totalImag = performOperation(lastOperator, totalImag, lastImag);
+    }
+
+    if (lastOperator !== '=' && lastOperator !== null) {
+      $('input').focus().val(totalReal + ' + ' + totalImag + 'i');
+    }
   };
 
-  var updateDisplay = function(displayString){
-    $('input').focus().val(displayString);
-  };
-
-  var clearTotal = function(val){
-    resReal = 0;
-    resImag = 0;
+  var clearMemory = function(){
+    totalReal = null;
+    totalImag = null;
+    lastReal = null;
+    lastImag = null;
+    lastOperator = null;
     $('input').focus().val('');
   };
 
-  var performOperation = function(operation) {
-    if (operation === '+') {
-      var userInput = $('input').val().split(' + ');
-      var userInputReal = parseInt(userInput[0]);
-      var userInputImag = parseInt(userInput[1]);
-      resReal = resReal + userInputReal;
-      resImag = resImag + userInputImag;
-      updateDisplay(formatDisplayTotal(resReal, resImag));
-    }
-    if (operation === '-') { console.log('clicked subtract'); }
-    if (operation === '*') { console.log('clicked multiply'); }
-    if (operation === '/') { console.log('clicked divide'); }
-    if (operation === 'c') {
-      clearTotal();
-    }
-    if (operation === '=') { console.log('clicked equals'); }
+  var performOperation = function(operation, num1, num2) {
+    if (operation === '+') { return num1 + num2; }
+    if (operation === '-') { return num1 - num2; }
   };
 
-  //click handlers for buttons
+  var clickHandler = function(buttonType) {
+    var userInput = $('input').val().split(' + ');
+    lastReal = parseInt(userInput[0]);
+    lastImag = parseInt(userInput[1]);
+
+
+
+    if (buttonType === '+') {
+      updateTotal();
+      lastOperator = '+';
+    }
+    // if (operation === '-') {
+      // totalReal = totalReal - userInputReal;
+      // totalImag = totalImag - userInputImag;
+      // updateDisplay(formatDisplayTotal(totalReal, totalImag));
+    // }
+    // if (operation === '*') { console.log('clicked multiply'); }
+    // if (operation === '/') { console.log('clicked divide'); }
+
+    if (buttonType === '=') {
+      updateTotal();
+      lastOperator = '=';
+    }
+
+    if (buttonType === 'c') {
+      clearMemory();
+    }
+  };
+
+  //click handler for buttons
   $('.buttonsRow').on('click', 'button', function(){
-    var operation = $(this).text();
-    performOperation(operation);
+    var buttonType = $(this).text();
+    clickHandler(buttonType);
   });
 
 });
