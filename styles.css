@@ -1,0 +1,43 @@
+div {
+  box-sizing: border-box;
+}
+.calcApp {
+  width: 422px;
+  background-color: #f3f3f3;
+  padding: 20px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+.display input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  text-align: right;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.buttonsRow {
+  clear: left;
+}
+
+button {
+  height: 100px;
+  width: 100px;
+  background-color: #d7d7d7;
+  border: 1px solid #ccc;
+  float: left;
+  margin-right: 20px;
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+button.wide {
+  width: 140px;
+}
